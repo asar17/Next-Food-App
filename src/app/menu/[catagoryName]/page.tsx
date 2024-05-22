@@ -39,8 +39,10 @@ export default function Catagory ({params}:{params:{catagoryName:string}}) {
                         }
                         <div className="flex justify-between items-center mx-0.5 ">
                             <p className="font-bold text-lg uppercase lg:text-sm xl:text-lg max-sm:text-[.8rem]">{pizza.title}</p>
-                            <p className="font-bold max-sm:text-[.7rem]">${pizza.price} {num}</p>
-                            <button className=" hidden group-hover:block text-sm uppercase bg-red-500 text-white p-2 rounded-lg font-bold">add to cart</button>
+                            <p className="font-bold max-sm:text-[.7rem]">${pizza.price}</p>
+                            <Link href="/cart" className="hidden group-hover:block">
+                               <button className="  text-sm uppercase bg-red-500 text-white p-2 rounded-lg font-bold">add to cart</button>
+                            </Link>
                         </div>
                     </Link>
                     ))}

@@ -25,13 +25,13 @@ const Menu = () =>{
                         <Link href={link.href} key={link.id} onClick={()=>setMenuOpen(false)}>{link.name}</Link>   
                     ))}
 
-                    {user ? (<Link href="/login">login</Link>):(<Link href="/orders">orders</Link>)}
+                    {user ? (<Link href="/" onClick={()=>setMenuOpen(false)}>login</Link>):(<Link href="/orders">orders</Link>)}
 
-                    <Link href="/cart">
+                    <Link href="/cart" onClick={()=>setMenuOpen(false)}>
                        <CartIcon/>
                     </Link>
 
-                    <Link href="/phone">
+                    <Link href="/phone" onClick={()=>setMenuOpen(false)}>
                        <PhoneIcon/>
                     </Link>
                 </div>  

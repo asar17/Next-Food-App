@@ -20,7 +20,7 @@ export default function Catagory ({params}:{params:{catagoryName:string}}) {
             }
             return catagory
 
-    },[catagory])
+    },[catagory,params.catagoryName])
 
     
 
@@ -31,7 +31,7 @@ export default function Catagory ({params}:{params:{catagoryName:string}}) {
         </h1>
            <div className="flex flex-wrap text-red-500">
                 {pizzas.map((pizza)=>(
-                    <Link  className="group border-r-2  border-b-2 border-red-500  w-full md:w-1/2  lg:w-1/3 flex  flex-col gap-6 h-[50vh] odd:bg-fuchsia-50" href={`/product/${pizza.id}`}>
+                    <Link  key={pizza.id} className="group border-r-2  border-b-2 border-red-500  w-full md:w-1/2  lg:w-1/3 flex  flex-col gap-6 h-[50vh] odd:bg-fuchsia-50" href={`/product/${pizza.id}`}>
                         {pizza.img && 
                         (<div className="relative py-10 w-full   h-[80%]">
                             <Image src={pizza.img} alt="catagory-img" className="object-contain pt-2" fill/>

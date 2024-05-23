@@ -28,7 +28,7 @@ const Slider = () =>{
           setCurrentInfoSlider((prev)=>( prev ===data.length-1 ? 0 : prev+1))
          },4000)
          return ()=>clearInterval(interval)
-      },[])
+      },[data.length])
     return(
         <div className="flex flex-col h-screen lg:flex-row  bg-fuchsia-50" key={data[currentInfoSlider].id}>
             {/* text containter */}

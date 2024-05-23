@@ -10,7 +10,7 @@ const Navbar = () => {
             {/* right navbar links */}
             <div className="hidden md:flex justify-center items-center gap-4 flex-1">
                 {NavbarLinks.map((link)=>(
-                    <Link href={link.href} className="last:hidden">{link.name}</Link>
+                    <Link href={link.href} className="last:hidden" key={link.name}>{link.name}</Link>
                 ))}
             </div>
             {/* logo */}

@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useState, useEffect, useMemo,useCallback} from 'react'
 import Link from 'next/link'
-import { pizzas ,Product }  from '../../../../data'
+import { pizzas ,Product,Products }  from '../../../../data'
 
  export default function Product1 ({params}:{params:{id:string}}){
     
@@ -11,15 +11,15 @@ import { pizzas ,Product }  from '../../../../data'
     const convertId=parseInt(params.id)
     
         
-        const specificindex = pizzas.findIndex((pizza)=>(pizza.id === convertId))
-        const res=pizzas[specificindex];
+    const specificindex = pizzas.findIndex((pizza)=>(pizza.id === convertId))
+    const res=pizzas[specificindex];
         
    
     
     const [count,setCount]= useState(0)
     const [totalPrice,setTotalPrice]=useState(res.price)
     const [totalPriceWithCount,setTotalPriceWithCount]=useState(0);
-    const [carts,setCarts]=useState([]);
+    const [carts,setCarts]=useState<Product[]>([]);
 
     // const copyPizzas=JSON.parse(JSON.stringify(pizzas));
     // console.log('card',carts);
@@ -29,20 +29,20 @@ import { pizzas ,Product }  from '../../../../data'
     const  addToCart = useCallback((id: number,) => {
         const copyPizzas=JSON.parse(JSON.stringify(pizzas));
         const index= copyPizzas.findIndex((f:Product)=>f.id===id);
-        const res2= copyPizzas[index];
+        const res2 = copyPizzas[index];
       
 
         res2.inCart=true;
         res2.totalPrise=totalPriceWithCount;
-        res2.options=[res2?.options[clicked]];
+        res2.options=res2.options?[res2?.options[clicked]]:[];
         
-         console.log('res',res2)
+        console.log('res',res2)
         carts.push(res2)
         console.log('card',carts)
       
         localStorage.setItem('card',JSON.stringify(carts))
 
-   },[totalPriceWithCount,carts])
+   },[totalPriceWithCount,carts,clicked])
 
    useEffect(()=>{
 
@@ -81,6 +81,7 @@ import { pizzas ,Product }  from '../../../../data'
                         <button 
                            className={`border-red-500 border-2  px-4 py-1 rounded-lg font-light ${clicked ===index &&'bg-red-500 text-white'}`}
                            onClick={(e)=>{setClicked(index);  }}
+                           key={btn.title}
                         >{btn?.title}</button>
                     ))}
                     

@@ -19,40 +19,36 @@ import { pizzas ,Product,Products }  from '../../../../data'
     const [count,setCount]= useState(0)
     const [totalPrice,setTotalPrice]=useState(res.price)
     const [totalPriceWithCount,setTotalPriceWithCount]=useState(0);
-    const [carts,setCarts]=useState<Product[]>([]);
+    let [details,setDetails]=useState<Product[]>([])
 
-    // const copyPizzas=JSON.parse(JSON.stringify(pizzas));
-    // console.log('card',carts);
-    // console.log('res',res)
-    // console.log('copy',copyPizzas)
-
-    const  addToCart = useCallback((id: number,) => {
-        const copyPizzas=JSON.parse(JSON.stringify(pizzas));
-        const index= copyPizzas.findIndex((f:Product)=>f.id===id);
-        const res2 = copyPizzas[index];
+   //add item to art
+   const addToCart = (id: number) =>{
+    const copyPizzas=JSON.parse(JSON.stringify(pizzas));
+    const index= copyPizzas.findIndex((f:Product)=>f.id===id);
+    const res2 = copyPizzas[index];
+    res2.inCart=true;
+    res2.totalPrise=totalPriceWithCount;
+    res2.options=[res2?.options[clicked]];
+    console.log('res',res2);
+    if(res2){
+        details?.push(res2);
       
-
-        res2.inCart=true;
-        res2.totalPrise=totalPriceWithCount;
-        res2.options=res2.options?[res2?.options[clicked]]:[];
-        
-        console.log('res',res2)
-        carts.push(res2)
-        console.log('card',carts)
-      
-        localStorage.setItem('card',JSON.stringify(carts))
-
-   },[totalPriceWithCount,carts,clicked])
+        console.log('setails',details);
+    }
+    localStorage.setItem('inCart',JSON.stringify(details))
+    
+   }
 
    useEffect(()=>{
 
-    const cart:any=localStorage.getItem('card');
-    const cartDetail=JSON.parse(cart);
-    setCarts(cartDetail)
-    
+     const cart=localStorage.getItem('inCart');
+     const cartDetail=cart !== null ? JSON.parse(cart):[];
+     setDetails(cartDetail)
+
    },[])
+
  
-    //to set total pricedepend on [small,medium,large]
+    //to set total price depend on [small,medium,large]
     useEffect( ()=>{
           setTotalPrice(res.options?res.price+res?.options[clicked]?.additionalPrice:res.price)
     },[clicked,totalPrice,res])
@@ -98,7 +94,7 @@ import { pizzas ,Product,Products }  from '../../../../data'
                         </p>
                     </div>
                     <Link href="/cart" className="bg-red-500 text-white p-2 text-md">
-                       <button className="uppercase" onClick={()=>{addToCart(res.id); }}>add to cart</button>
+                       <button className="uppercase" onClick={(e)=>{addToCart(res.id);}}>add to cart</button>
                     </Link>
                 </div>
 

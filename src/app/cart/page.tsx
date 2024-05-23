@@ -6,60 +6,63 @@ import { useEffect ,useState,useCallback ,useMemo} from 'react';
 export default function Cart (){
 
     const [details,setDetails]=useState([]);
-    const [count,setCount]=useState(details.length);
+    const [count,setCount]=useState(0);
     const [calcSum,setCalcSum]=useState(0);
     const [total,setTotal]=useState(0);
     const [clicked,setClicked]=useState(0);
 
     
-    const sum=useCallback(()=>{
-        if(count >0){
-           setTotal((total)=>total-details[clicked]['totalPrise']);
-        }
-      
-        else{
-          details.map((d)=> setTotal((total)=>total+d['totalPrise']));
-        }
-      
-      
-    },[calcSum,count,clicked])
+    
     
 
-    //t get carts from local-storage
-    useEffect(()=>{
-
-        sum()
-         const cart =  localStorage.getItem('card');
-        const cartDetail=cart !== null ?JSON.parse(cart):[];
-       // const cartDetail=JSON.parse(cart);
+       //to get carts from local-storage
+        useEffect(()=>{
+         const cart:any =  localStorage.getItem('inCart');
+         const cartDetail=JSON.parse(cart);
          setDetails(cartDetail);
-       // setDetails(JSON.parse(localStorage.getItem('card') || '[]'))
-        console.log('detail',details)
+       },[localStorage,count])
 
-       },[count,calcSum])
+
+       //calc sum
+       useEffect(()=>{
+         sum()
+       },[calcSum])
 
      
   
-    //remove item from carts depend on specific index
-    const removeItem= (index:number)=>{
-        details.splice(index,1);
-        localStorage.setItem('card',JSON.stringify(details))
-    }
+        //remove item from carts depend on specific index
+        const removeItem=async (index:number)=>{
+           details.splice(index,1);
+           localStorage.setItem('inCart',JSON.stringify(details));
+            details.map((d)=> setTotal((total)=>total-d['totalPrise']));
+            sum("zero")
+        }
+        //calc sum
+        const sum=useCallback(async(zero?:string)=>{
+            if(zero==='zero'){
+                setTotal(0)
+                details.map((d) => setTotal((total) => total + d['totalPrise']));
 
+            }
+            else{
+                details.map((d) => setTotal((total) => total + d['totalPrise']));
+
+            }
+        },[calcSum,removeItem])
 
     
     return(
         <div className="flex flex-col lg:flex-row lg:w-full h-screen ">
             {/* cart container */}
             <div className="flex  h-1/2 w-full px-4 overflow-y-scroll md:ml-0 lg:w-1/2  md:px-10 lg:h-screen  justify-center items-center lg:justify-start lg:items-start lg:p-16">
-                    {details?.length !== 0 ?(
-                        <div className="flex flex-col w-full  lg:py-20 lg:mt-12 md:mt-[-24] ">
+                    {details.length !== 0 ?(
+                        <div className="flex flex-col w-full h-full  lg:py-20 lg:mt-12 md:mt-[-24] ">
                         
                         {details?.map((item:Product,index)=>{
                             //setTotal((total)=>total+item?.totalPrise)
                             
                         return(
-                                <div className="flex  gap-4 h-max" key={item.title}>
+                                <div className="flex  gap-4 h-full " key={item.title}>
                                     {/* image container */}
                                     <div className="w-[35%] md:w-[25%] lg:w-[35%] h-[15vh] relative ">
                                         {item.img &&<Image src={item.img} alt="cart-img" className="object-contain py-1 flex" width={100} height={100}/>}

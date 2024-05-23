@@ -18,7 +18,7 @@ const Slider = () =>{
         {
           id: 3,
           title: "the best pizza to share with your family",
-          image: '/slide3.jpg',
+          image: '/temporary/m3.png',
         },
       ];
       //to define index of data such as ===> [data[0].title]

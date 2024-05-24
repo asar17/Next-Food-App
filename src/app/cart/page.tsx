@@ -26,7 +26,7 @@ export default function Cart (){
             setTotal(0)
             details.map((d) => setTotal((total) => total + d['totalPrise']));
 
-        },[details,total,count,localStorage])
+        },[details,total,count])
        
         //calc sum
         const sum=useCallback(async(zero?:string)=>{

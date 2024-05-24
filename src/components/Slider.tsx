@@ -34,7 +34,7 @@ const Slider = () =>{
             {/* text containter */}
             <div 
               className=" relative flex flex-col justify-center items-center h-1/2 text-red-500 font-bold md:gap-2  lg:w-1/2  w-full my-8 lg:h-full" >
-                <h1 className="uppercase p-6 text-center leading-relaxed md:leading-loose  text-4xl  md:text-5xl  xl:text-7xl font-bold ">
+                <h1 className="uppercase p-6 text-center leading-loose md:leading-loose lg:leading-loose xl:leading-relaxed text-4xl  md:text-5xl  xl:text-7xl font-bold ">
                     {data[currentInfoSlider].title}
                 </h1>
                 <Link href="/menu" >

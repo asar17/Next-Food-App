@@ -14,12 +14,12 @@ const Offer = () =>{
                 </p>
                 <span className="text-yellow-300 text-5xl max-lg:text-xl"><CountDown/></span>
                 <div>
-                   <button className="bg-red-500 px-6 py-3 rounded-lg">Order Now</button>
+                   <button className="bg-red-500 px-6 py-3 rounded-lg text-white">Order Now</button>
                 </div>
             </div>
             {/* image container */}
-            <div className="flex  flex-1  relative  md:w-[65%] md:h-1/2 lg:w-1/2 lg:justify-end ">
-                <Image src="/offerProduct.png"  width={400} height={400} className="object-contain" alt="offer-img"/>
+            <div className="flex  flex-1  relative  md:w-[65%] md:h-1/2 lg:w-full justify-end lg:justify-center lg:h-full p-4">
+                <Image src="/offerProduct.png"  width={500} height={500} className="object-contain" alt="offer-img"/>
             </div>
            
         </div>

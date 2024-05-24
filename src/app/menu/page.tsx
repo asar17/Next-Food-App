@@ -12,9 +12,9 @@ export default function MenuPage () {
                         key={item.id}
                         style={{backgroundImage:`url(${item.img})`}}
                     >
-                        <div className="flex flex-col relative  max-sm:w-full md:w-full">
+                        <div className="flex flex-col relative  max-sm:w-full md:w-1/2 ">
                             <h1 className="uppercase text-3xl font-bold  ">{item.title}</h1>
-                            <p className="font- opacity-70 text-sm my-8  ">{item.desc}</p>
+                            <p className="font- opacity-70 text-sm my-8  md:text-[0.7rem] lg:text-md">{item.desc}</p>
                         
                         </div>
                     </Link>

@@ -29,11 +29,8 @@ import { pizzas ,Product,Products }  from '../../../../data'
     res2.inCart=true;
     res2.totalPrise=totalPriceWithCount;
     res2.options=[res2?.options[clicked]];
-    console.log('res',res2);
     if(res2){
         details?.push(res2);
-      
-        console.log('setails',details);
     }
     localStorage.setItem('inCart',JSON.stringify(details))
     

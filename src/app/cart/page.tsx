@@ -11,18 +11,7 @@ export default function Cart (){
     const [total,setTotal]=useState(0);
     const [clicked,setClicked]=useState(0);
 
-    
-    
-    
-
-       //to get carts from local-storage
-        useEffect(()=>{
-         const cart =  localStorage.getItem('inCart');
-         const cartDetail=cart !== null ? JSON.parse(cart):[];
-         setDetails(cartDetail);
-       },[count])
-
-
+  
        //calc sum
        useEffect(()=>{
          sum()
@@ -34,23 +23,27 @@ export default function Cart (){
         const removeItem =useCallback((index:number)=>{
             details.splice(index,1);
             localStorage.setItem('inCart',JSON.stringify(details));
-             details.map((d)=> setTotal((total)=>total-d['totalPrise']));
-             sum("zero")
+            setTotal(0)
+            details.map((d) => setTotal((total) => total + d['totalPrise']));
 
-        },[details,total])
+        },[details,total,count,localStorage])
        
         //calc sum
         const sum=useCallback(async(zero?:string)=>{
-            if(zero==='zero'){
-                setTotal(0)
                 details.map((d) => setTotal((total) => total + d['totalPrise']));
+        },[calcSum])
 
-            }
-            else{
-                details.map((d) => setTotal((total) => total + d['totalPrise']));
 
-            }
-        },[calcSum,removeItem])
+        const getCarts = async ()=>{
+            const cart =  localStorage.getItem('inCart');
+            const cartDetail=cart !== null ? JSON.parse(cart):[];
+            await setDetails(cartDetail);
+        }
+
+          //to get carts from local-storage
+          useEffect(()=>{
+            getCarts()
+          },[count])
 
     
     return(
@@ -61,10 +54,9 @@ export default function Cart (){
                         <div className="flex flex-col w-full lg:h-full md:h-full  overflow-y-scroll justify-center   lg:py-20 ">
                         
                         {details?.map((item:Product,index)=>{
-                            //setTotal((total)=>total+item?.totalPrise)
                             
                         return(
-                                <div className=" flex gap-4 md:py-1  h-1/3  items-center" key={item.title}>
+                                <div className=" flex gap-4 md:py-1  h-1/3  items-center" key={index}>
                                     {/* image container */}
                                     <div className="w-[35%] md:w-[25%] lg:w-[35%] h-[15vh] flex justify-center ">
                                         {item.img &&<Image src={item.img} alt="cart-img" className="object-contain py-1 flex" width={100} height={100}/>}

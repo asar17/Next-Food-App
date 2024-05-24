@@ -45,7 +45,7 @@ import { pizzas ,Product,Products }  from '../../../../data'
      const cartDetail=cart !== null ? JSON.parse(cart):[];
      setDetails(cartDetail)
 
-   },[])
+   },[count])
 
  
     //to set total price depend on [small,medium,large]

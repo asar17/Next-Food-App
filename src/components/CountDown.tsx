@@ -6,7 +6,8 @@ const endingDate= new Date("2024-12-8");
 const CountDown = () =>{
     
     return(
-        <Countdown date={endingDate}/>
+       // <Countdown date={endingDate}/>
+       <div></div>
     )
 }
 export default CountDown;
